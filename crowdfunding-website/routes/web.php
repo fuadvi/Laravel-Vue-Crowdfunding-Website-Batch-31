@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/route-1', function () {
+    return 'halaman user';
+})->middleware('email.verifikasi');
+
+Route::get('/route-2', function () {
+    return 'halaman admin';
+})->middleware(['admin', 'email.verifikasi']);
