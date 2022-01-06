@@ -15,7 +15,12 @@ class User extends Model
 
     public function role()
     {
-        return $this->hasOne(Role::class, 'id', 'role_id');
+        return $this->belongsTo(Role::class, 'id', 'role_id');
+    }
+
+    public function otpCode()
+    {
+        return $this->hasOne('App\Models\Otp_code');
     }
 
     public static function boot()

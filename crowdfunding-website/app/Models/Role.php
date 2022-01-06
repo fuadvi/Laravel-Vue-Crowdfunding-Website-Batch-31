@@ -13,7 +13,7 @@ class Role extends Model
     public $incrementing = false;
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany('App\Models\User');
     }
 
     protected static function boot()
