@@ -11,5 +11,5 @@ class OtpCode extends Model
 {
     use HasFactory, UsesUuid;
 
-    protected $fillable = ['otp', 'user_id'];
+    protected $fillable = ['otp', 'user_id', 'valid_until'];
 }
