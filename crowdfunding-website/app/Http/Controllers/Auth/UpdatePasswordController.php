@@ -7,9 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
-class LoginController extends Controller
+class UpdatePasswordController extends Controller
 {
-
     /**
      * Handle the incoming request.
      *
@@ -18,18 +17,22 @@ class LoginController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:8|confirmed'
+        ]);
+
         $user = User::where('email', $request->email)->first();
-        if (!$token = auth()->attempt($request->only(['email', 'password']))) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+        $user->update([
+            'password' => bcrypt($request->password)
+        ]);
 
         return response()->json(
             [
-                'response_code' => "00",
-                'response_message' => "user berhasil login",
-                "data" =>  [
-                    "token" => $token,
-                    "user" => $user
+                "response_code" => "00",
+                "response_message" => "berhasil update password",
+                "data" => [
+                    'user' => Arr::except($user, ['username', 'password', 'role_id'])
                 ]
             ]
         );

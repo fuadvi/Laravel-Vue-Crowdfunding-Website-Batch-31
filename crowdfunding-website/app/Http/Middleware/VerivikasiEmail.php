@@ -18,10 +18,14 @@ class VerivikasiEmail
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = User::select('email_verified_at')->first();
+        $user = auth()->user();
         if ($user->email_verified_at) {
             return $next($request);
         }
-        abort(401);
+        return response()->json(
+            [
+                'message' => 'Email belom terverifikasi | Harap verifikasi terlebih dahulu'
+            ]
+        );
     }
 }
