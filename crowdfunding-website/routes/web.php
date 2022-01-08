@@ -20,3 +20,7 @@ Route::get('/route-1', function () {
 Route::get('/route-2', function () {
     return 'halaman admin';
 })->middleware(['admin', 'email.verifikasi']);
+
+Route::get('/r', function () {
+    return 'halaman admin';
+});
