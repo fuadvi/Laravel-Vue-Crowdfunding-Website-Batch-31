@@ -7,6 +7,7 @@ use App\Models\OtpCode;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class VerificationController extends Controller
 {
@@ -55,7 +56,7 @@ class VerificationController extends Controller
                 'response_code' => "00",
                 'response_message' => "berhasil diverifikasi",
                 "data" =>  [
-                    "user" => $user
+                    "user" => Arr::except($user, ['username', 'password', 'role_id'])
                 ]
             ]
         );

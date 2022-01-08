@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class RegeneretController extends Controller
 {
@@ -34,7 +35,7 @@ class RegeneretController extends Controller
                 "response_code" => "00",
                 "response_message" => "silahkan cek email",
                 "data" => [
-                    'user' => new UserResource($user)
+                    'user' => Arr::except($user, ['username', 'password', 'role_id'])
                 ]
             ]
         );
