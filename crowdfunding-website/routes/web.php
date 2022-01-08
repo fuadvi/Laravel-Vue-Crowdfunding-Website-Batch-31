@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +23,7 @@ Route::get('/route-2', function () {
 })->middleware(['admin', 'email.verifikasi']);
 
 Route::get('/r', function () {
-    return 'halaman admin';
+    dd(auth()->user()->id);
 });
+
+Auth::routes();

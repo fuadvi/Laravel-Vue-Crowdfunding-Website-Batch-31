@@ -19,12 +19,14 @@ class RegisterController extends Controller
     {
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
-        $user = User::create($data);
 
-        return response()->json([
-            'status' => 'ok',
-            'massage' => 'berhasil daftar',
-            'data' => $user
-        ]);
+        User::create($data);
+
+        return response()->json(
+            [
+                'status' => 'ok',
+                'message' => 'Daftar berhasil',
+            ]
+        );
     }
 }
