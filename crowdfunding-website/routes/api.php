@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\Tes;
 use App\Http\Controllers\Auth\UpdatePasswordController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Profile\GetProfileController;
+use App\Http\Controllers\Profile\UpdateProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +34,11 @@ Route::prefix('/auth')
         Route::post('verification', VerificationController::class);
         Route::post('generet-otp', RegeneretController::class);
         Route::post('update-password', UpdatePasswordController::class);
+    });
+
+Route::prefix('/profile')
+    ->middleware(['auth:api', 'email.verifikasi'])
+    ->group(function () {
+        Route::get('get-profile', GetProfileController::class);
+        Route::post('update-profile', UpdateProfileController::class);
     });
