@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>TerimaKasi {{ $nama }} telah mendaftar di website ini</h1>
+    <p>harap verifikasi terlebih dahulu. Kote OTP : {{ $otp }} </p>
+</body>
+</html>
