@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserRegisterEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -29,6 +30,8 @@ class RegeneretController extends Controller
             'otp' => rand(111111, 999999),
             'valid_until' => Carbon::now()->addMinute(5)
         ]);
+
+        UserRegisterEvent::dispatch($user);
 
         return response()->json(
             [
