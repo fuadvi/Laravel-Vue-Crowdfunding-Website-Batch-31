@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserRegisterEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\UserResource;
-use App\Mail\SendEmailUser;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -30,8 +28,7 @@ class RegisterController extends Controller
             'valid_until' => Carbon::now()->addMinute(5)
         ]);
 
-        Mail::to($user)->send(new SendEmailUser($user));
-
+        UserRegisterEvent::dispatch($user);
         return response()->json(
             [
                 "response_code" => "00",
