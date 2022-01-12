@@ -15,11 +15,12 @@ const perkenalan = introduce(data)
 console.log(perkenalan)  
 
 // soal 3
-function hitung_huruf_vokal(data){
-  return data.match(/[aeiou]/g).length;
+function hitung_huruf_vokal(data) {
+  const vocal = data.match(/[aeiou]/g)
+  return vocal  == null ? 0 : vocal.length;
 }
+const a = hitung_huruf_vokal("zzaa")
 
-const a = hitung_huruf_vokal("aaeuibbab")
 console.log(a)
 
 // soal 4
