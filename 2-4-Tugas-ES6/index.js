@@ -56,5 +56,5 @@ const view = "glass"
 var before = 'Lorem ' + view + 'dolor sit amet, ' + 'consectetur adipiscing elit,' + planet 
 
 // jawaban soal 5
-var after = `Lorem  ${view} dolor sit amet, consectetur adipiscing elit, ${planet} `
+const after = `Lorem  ${view} dolor sit amet, consectetur adipiscing elit, ${planet} `
 console.log(after)
