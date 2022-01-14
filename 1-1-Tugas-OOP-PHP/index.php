@@ -107,7 +107,6 @@ class Harimau extends Hewan
 $elang = new Elang();
 echo $elang->getInfoHewan(get_class($elang));
 $elang->serang(10);
-
 $harimau = new Harimau();
 echo $harimau->getInfoHewan(get_class($harimau));
 $harimau->serang(10);

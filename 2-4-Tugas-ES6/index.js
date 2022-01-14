@@ -1,3 +1,9 @@
+// soal 1
+const luasPersegiPanjang = (panjang, lebar) => {
+  return  panjang * lebar
+}
+
+console.log(luasPersegiPanjang(20,3))
 
 // soal 2
 const newFunction = function literal(firstName, lastName) {
@@ -18,7 +24,7 @@ const newFunction2 = (firstName, lastName) => ({
 })
 
 //Driver Code 
-// newFunction("William", "Imoh").fullName() 
+newFunction("William", "Imoh").fullName() 
 
 
 
