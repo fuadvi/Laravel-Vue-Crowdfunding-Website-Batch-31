@@ -11,7 +11,7 @@
   <div id="app">
     <input type="text" v-model="isi">
 
-    <button @Click="add" v-if="tombol">update</button>
+    <button @Click="update(isi)" v-if="tombol">update</button>
     <button @Click="add" v-else>tambah</button>
     
     <div v-for="(user, index) in users" :key="index">
@@ -54,13 +54,18 @@
         },
         edit: function(nama){
           this.tombol = 'edit'
-          console.log(nama)
           this.isi = nama
 
         },
         hapus : function(nama){
+          
           this.users =  this.users.filter(function(item){
              return item.name != nama
+           })
+        },
+        update : function(nama){
+          this.users =  this.users.filter(function(item){
+              item.name == nama
            })
         }
       }
