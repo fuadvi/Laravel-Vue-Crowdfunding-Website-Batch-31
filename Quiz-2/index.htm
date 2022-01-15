@@ -10,10 +10,13 @@
 <body>
   <div id="app">
     <input type="text" v-model="isi">
-    <button @Click="add">tambah</button>
+
+    <button @Click="add" v-if="tombol">update</button>
+    <button @Click="add" v-else>tambah</button>
+    
     <div v-for="(user, index) in users" :key="index">
       <ul>
-        <li>{{ user.name }}</li>
+        <li>{{ user.name }}  ||  <button @Click="edit(user.name)">edit</button> || <button @Click="hapus(user.name)">delete</button></li>
       </ul>
     </div>
   </div>
@@ -24,6 +27,7 @@
       el: '#app',
       data: {
         isi: '',
+        tombol:'',
         users : [
         {
           'name' : 'Muhamamd Iqbal Mubarok'
@@ -41,11 +45,23 @@
       },
       computed : {
         
+        
       },
       methods : {
         add : function(){
           this.users.push({ name: this.isi })
           this.isi = ''
+        },
+        edit: function(nama){
+          this.tombol = 'edit'
+          console.log(nama)
+          this.isi = nama
+
+        },
+        hapus : function(nama){
+          this.users =  this.users.filter(function(item){
+             return item.name != nama
+           })
         }
       }
   })
