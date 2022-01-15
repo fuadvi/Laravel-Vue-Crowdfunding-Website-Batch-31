@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="isi">
+    <button @Click="add">tambah</button>
+    <div v-for="(user, index) in users" :key="index">
+      <ul>
+        <li>{{ user.name }}</li>
+      </ul>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+   var vm = new Vue({
+      el: '#app',
+      data: {
+        isi: '',
+        users : [
+        {
+          'name' : 'Muhamamd Iqbal Mubarok'
+        },
+        
+        {
+          'name' : 'Tuby Purwanti'
+        },
+        
+        {
+          'name' : 'Faqih muhammad'
+        },
+        
+        ]
+      },
+      computed : {
+        
+      },
+      methods : {
+        add : function(){
+          this.users.push({ name: this.isi })
+          this.isi = ''
+        }
+      }
+  })
+  </script>
+</body>
+</html>
