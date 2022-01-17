@@ -33,7 +33,15 @@
               <textarea name="address" v-model="address" ></textarea>
               <label>Nomor hp</label>
               <input type="number" name="name" v-model.number="no_hp">
-              <input type="submit" value="submit">
+              
+              <div v-if="buttonStatus == 'submit'">
+                <input type="submit" value="submit">
+              </div>
+
+              <div v-if="buttonStatus == 'edit'">
+                <input type="submit" value="update" @click="updateMember(idMember)">
+                <input type="submit" value="cencel" @click="clearForm">
+              </div>
       </form>
 
       <table border="1">
@@ -43,6 +51,10 @@
             <td>{{ member.no_hp }}</td>
             <td>
               <img width=100 :src="member.photo_profile ? photo_profileDomain + member.photo_profile :  'https://dummyimage.com/16:9x1080'" >
+            </td>
+            <td>
+              <button @click="removeMember(member.id)">Hapus</button>
+              <button @click='editMember(member)'>edit</button>
             </td>
         </tr>
       </table>
@@ -60,6 +72,8 @@
           no_hp:'',
           members: [],
           photo_profileDomain : 'http://demo-api-vue.sanbercloud.com/api/member',
+          buttonStatus : 'submit',
+          idMember: null
         },
         computed: {},
         methods: {
@@ -79,6 +93,7 @@
               .then((res)=> {
                  this.members.push(res.data)
                   alert("Berhasil menambahkan data member baru")
+                  this.getAllMember()
               })
               .catch((err)=>{
                 console.log(err)
@@ -101,6 +116,61 @@
               })
 
           },
+          removeMember: function(id){
+            const config = {
+              method: "post",
+              url: `http://demo-api-vue.sanbercloud.com/api/member/${id}`,
+              params : {_method: "DELETE"}
+            };
+
+            axios(config)
+              .then((res)=> {
+                this.getAllMember()
+                console.log(res)
+                
+              })
+              .catch((err)=>{
+                console.log(err)
+              })
+          },
+          editMember: function(member){
+            this.name = member.name
+            this.address = member.address
+            this.no_hp = member.no_hp
+            this.buttonStatus = 'edit'
+            this.idMember = member.id
+          },
+          updateMember: function(id){
+            let formData = new FormData()
+            formData.append('name',this.name)
+            formData.append('address',this.address)
+            formData.append('no_hp',this.no_hp)
+
+            const config = {
+              method: "post",
+              url: `http://demo-api-vue.sanbercloud.com/api/member/${id}`,
+              params : {_method: "PUT"},
+              data:formData
+            };
+
+            axios(config)
+              .then((res)=> {
+                this.clearForm()
+                this.getAllMember()
+                alert('Data member berhasil diubah')
+                
+              })
+              .catch((err)=>{
+                console.log(err)
+              })
+          },
+          clearForm : function(){
+             this.name = ''
+            this.address = ''
+            this.no_hp = ''
+            this.buttonStatus = 'submit'
+            this.idMember = null
+          }
         },
         created(){
           this.getAllMember()
