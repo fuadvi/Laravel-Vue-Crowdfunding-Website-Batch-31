@@ -28,16 +28,21 @@
     <div id="app">
       <form @Submit.prevent="submitForm()">
               <label>Nama</label>
-              <input type="text" name="name" v-model="name">
+              <input type="text" name="name" v-model="name" :disabled="buttonStatus == 'upload'">
               <label>addres</label>
-              <textarea name="address" v-model="address" ></textarea>
+              <textarea name="address" v-model="address" :disabled="buttonStatus == 'upload'"></textarea>
               <label>Nomor hp</label>
-              <input type="number" name="name" v-model.number="no_hp">
+              <input type="number" name="name" v-model.number="no_hp"  :disabled="buttonStatus == 'upload'">
               <div v-if="buttonStatus == 'submit'">
                 <input type="submit" value="submit">
               </div>
               <div v-if="buttonStatus == 'edit'">
                 <input type="submit" value="update" @click="updateMember(idMember)">
+                <input type="submit" value="cencel" @click="clearForm">
+              </div>
+              <div v-if="buttonStatus == 'upload'">
+                <input type="file" name="photo_profile" ref="photo_profile">
+                <input type="submit" value="UPLOAD" @click="submitUpload(idUpload)">
                 <input type="submit" value="cencel" @click="clearForm">
               </div>
       </form>
@@ -54,6 +59,7 @@
               <button @click="getMember(member.id)">detail</button>
               <button @click="removeMember(member.id)">Hapus</button>
               <button @click='editMember(member)'>edit</button>
+              <button @click='uploadFoto(member)'>Upload Foto</button>
             </td>
         </tr>
       </table>
@@ -72,7 +78,8 @@
           members: [],
           photo_profileDomain : 'http://demo-api-vue.sanbercloud.com/api/member',
           buttonStatus : 'submit',
-          idMember: null
+          idMember: null,
+          idUpload : 0
         },
         computed: {},
         methods: {
@@ -174,12 +181,44 @@
                 console.log(err)
               })
           },
+          uploadFoto: function(member){
+            this.name = member.name
+            this.address = member.address
+            this.no_hp = member.no_hp
+            this.buttonStatus = 'upload'
+            this.idUpload = member.id
+          },
+          submitUpload: function(id){
+            let file = this.$refs.photo_profile.files[0]
+
+             let formData = new FormData()
+            formData.append('photo_profile',file)
+
+             const config = {
+              method: "post",
+              url: `http://demo-api-vue.sanbercloud.com/api/member/${id}/upload-photo-profile`,
+              data:formData
+            };
+
+             axios(config)
+              .then((res)=> {
+                this.clearForm()
+                this.getAllMember()
+                alert('Data member berhasil diubah')
+                console.log(res)
+                
+              })
+              .catch((err)=>{
+                console.log(err)
+              })
+          },
           clearForm : function(){
              this.name = ''
             this.address = ''
             this.no_hp = ''
             this.buttonStatus = 'submit'
             this.idMember = null
+            this.idUpload = null
           },
         },
         created(){
