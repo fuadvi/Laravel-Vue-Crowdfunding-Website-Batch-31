@@ -33,11 +33,9 @@
               <textarea name="address" v-model="address" ></textarea>
               <label>Nomor hp</label>
               <input type="number" name="name" v-model.number="no_hp">
-              
               <div v-if="buttonStatus == 'submit'">
                 <input type="submit" value="submit">
               </div>
-
               <div v-if="buttonStatus == 'edit'">
                 <input type="submit" value="update" @click="updateMember(idMember)">
                 <input type="submit" value="cencel" @click="clearForm">
@@ -53,6 +51,7 @@
               <img width=100 :src="member.photo_profile ? photo_profileDomain + member.photo_profile :  'https://dummyimage.com/16:9x1080'" >
             </td>
             <td>
+              <button @click="getMember(member.id)">detail</button>
               <button @click="removeMember(member.id)">Hapus</button>
               <button @click='editMember(member)'>edit</button>
             </td>
@@ -116,6 +115,17 @@
               })
 
           },
+          getMember: function(id){
+            const config = {
+              method: "get",
+              url: `http://demo-api-vue.sanbercloud.com/api/member/${id}`,
+            };
+            axios(config)
+            .then((res) => {
+              console.log(res.data.member)
+              alert("data member berhasil di tampilkan")
+            })
+          },
           removeMember: function(id){
             const config = {
               method: "post",
@@ -170,7 +180,7 @@
             this.no_hp = ''
             this.buttonStatus = 'submit'
             this.idMember = null
-          }
+          },
         },
         created(){
           this.getAllMember()
