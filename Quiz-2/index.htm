@@ -58,15 +58,14 @@
 
         },
         hapus : function(nama){
-          
+
           this.users =  this.users.filter(function(item){
              return item.name != nama
            })
         },
         update : function(nama){
-          this.users =  this.users.filter(function(item){
-              item.name == nama
-           })
+          this.users.splice(1,0,{'name': nama})
+           console.log(this.users)
         }
       }
   })
