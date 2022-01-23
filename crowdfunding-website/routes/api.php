@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\Tes;
 use App\Http\Controllers\Auth\UpdatePasswordController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\Profile\GetProfileController;
 use App\Http\Controllers\Profile\UpdateProfileController;
 use Illuminate\Http\Request;
@@ -42,3 +43,11 @@ Route::prefix('/profile')
         Route::get('get-profile', GetProfileController::class);
         Route::post('update-profile', UpdateProfileController::class);
     });
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'campaign'
+], function () {
+    Route::get('random/{count}', [CampaignController::class, 'random']);
+    Route::post('store', [CampaignController::class, 'store']);
+});
