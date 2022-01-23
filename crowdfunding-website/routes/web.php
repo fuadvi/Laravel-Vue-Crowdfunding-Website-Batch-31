@@ -22,8 +22,10 @@ Route::get('/route-2', function () {
     return 'halaman admin';
 })->middleware(['admin', 'email.verifikasi']);
 
-Route::get('/r', function () {
-    dd(auth()->user()->id);
+Route::get('/', function () {
+    return view('app');
 });
+
+
 
 Auth::routes();
