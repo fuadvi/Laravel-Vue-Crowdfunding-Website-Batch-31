@@ -62,7 +62,7 @@
             <v-btn icon>
                 <v-badge color="orange" overlap>
                     <template v-slot:badge>
-                        <span>3</span>
+                        <span>{{ counter }}</span>
                     </template>
                     <v-icon>mdi-cash-multiple</v-icon>
                 </v-badge>
@@ -133,7 +133,14 @@ export default {
    computed: {
        isHome () {
            return (this.$route.path === '/' || this.$route.path ==='/home')
-       }
-   }
+       },
+
+   },
+    methods: {
+        increment() {
+            store.commit('increment')
+        }
+    }
+
 }
 </script>

@@ -23,6 +23,21 @@ class CampaignController extends Controller
         );
     }
 
+    public function detail($id)
+    {
+        $campaign = Campaign::find($id);
+        $data['campaign'] = $campaign;
+
+        return response()->json(
+            [
+                'response_code' => '00',
+                'response_message' => 'data campaigns detail berhasil di tampilkan',
+                'data' => $data
+            ],
+            200
+        );
+    }
+
     public function random($count)
     {
         $campaigns = Campaign::select("*")
