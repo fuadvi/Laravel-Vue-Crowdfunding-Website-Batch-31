@@ -3,9 +3,9 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegeneretController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\Tes;
 use App\Http\Controllers\Auth\UpdatePasswordController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\Profile\GetProfileController;
 use App\Http\Controllers\Profile\UpdateProfileController;
@@ -50,4 +50,13 @@ Route::group([
 ], function () {
     Route::get('random/{count}', [CampaignController::class, 'random']);
     Route::post('store', [CampaignController::class, 'store']);
+    Route::get('/', [CampaignController::class, 'index']);
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'blog'
+], function () {
+    Route::get('random/{count}', [BlogController::class, 'random']);
+    Route::post('store', [BlogController::class, 'store']);
 });

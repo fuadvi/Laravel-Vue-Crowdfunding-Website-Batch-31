@@ -2,40 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Campaign;
+use App\Models\Blog;
 use Illuminate\Http\Request;
 
-class CampaignController extends Controller
+class BlogController extends Controller
 {
-
-    public function index()
-    {
-        $campaigns = Campaign::paginate(6);
-        $data['campaigns'] = $campaigns;
-
-        return response()->json(
-            [
-                'response_code' => '00',
-                'response_message' => 'data campaigns berhasil di tampilkan',
-                'data' => $data
-            ],
-            200
-        );
-    }
-
     public function random($count)
     {
-        $campaigns = Campaign::select("*")
+        $Blogs = Blog::select("*")
             ->inRandomOrder()
             ->limit($count)
             ->get();
 
-        $data['campaigns'] = $campaigns;
+        $data['blogs'] = $Blogs;
 
         return response()->json(
             [
                 'response_code' => '00',
-                'response_message' => 'data campaigns berhasil di tampilkan',
+                'response_message' => 'data Blogs berhasil di tampilkan',
                 'data' => $data
             ],
             200
@@ -49,7 +33,7 @@ class CampaignController extends Controller
             'description' => 'required'
         ]);
 
-        $campaign = Campaign::create([
+        $Blog = Blog::create([
             'title' => $request->title,
             'description' => $request->description
         ]);
@@ -57,14 +41,14 @@ class CampaignController extends Controller
         if ($request->hasFile(('image'))) {
             $image = $request->file('image');
             $image_extension = $image->getClientOriginalExtension();
-            $image_name = $campaign->id . "." . $image_extension;
-            $image_folder = '/photos/campaign/';
+            $image_name = $Blog->id . "." . $image_extension;
+            $image_folder = '/photos/Blog/';
             $image_location = $image_folder . $image_name;
 
             try {
                 $image->move(public_path(($image_folder)), $image_name);
 
-                $campaign->update([
+                $Blog->update([
                     'image' => $image_location
                 ]);
             } catch (\Throwable $th) {
@@ -77,12 +61,12 @@ class CampaignController extends Controller
                 );
             }
         }
-        $data['campaign'] = $campaign;
+        $data['Blog'] = $Blog;
 
         return response()->json(
             [
                 'response_code' => '00',
-                'response_message' => 'data campaigns berhasil di tambahkan',
+                'response_message' => 'data Blogs berhasil di tambahkan',
                 'data' => $data
             ],
             200
