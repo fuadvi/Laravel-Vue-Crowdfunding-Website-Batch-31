@@ -5383,6 +5383,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'App',
   data: function data() {
@@ -5403,13 +5405,12 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     isHome: function isHome() {
       return this.$route.path === '/' || this.$route.path === '/home';
+    },
+    transaction: function transaction() {
+      return this.$store.getters.transaction;
     }
   },
-  methods: {
-    increment: function increment() {
-      store.commit('increment');
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -5422,47 +5423,26 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _router_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./router.js */ "./resources/js/router.js");
-/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
-/* harmony import */ var _plugins_vuetify_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plugins/vuetify.js */ "./resources/js/plugins/vuetify.js");
-/* harmony import */ var _bootstrap_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./bootstrap.js */ "./resources/js/bootstrap.js");
-/* harmony import */ var _bootstrap_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_bootstrap_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store.js */ "./resources/js/store.js");
+/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
+/* harmony import */ var _plugins_vuetify_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugins/vuetify.js */ "./resources/js/plugins/vuetify.js");
+/* harmony import */ var _bootstrap_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./bootstrap.js */ "./resources/js/bootstrap.js");
+/* harmony import */ var _bootstrap_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_bootstrap_js__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_4__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_5__["default"]);
-var store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
-  state: {
-    counter: 0
-  },
-  mutations: {
-    increment: function increment(state) {
-      state.count++;
-    }
-  }
-});
-var app = new vue__WEBPACK_IMPORTED_MODULE_4__["default"]({
+var app = new vue__WEBPACK_IMPORTED_MODULE_5__["default"]({
   el: '#app',
   router: _router_js__WEBPACK_IMPORTED_MODULE_0__["default"],
-  vuetify: _plugins_vuetify_js__WEBPACK_IMPORTED_MODULE_2__["default"],
-  store: store,
+  store: _store_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  vuetify: _plugins_vuetify_js__WEBPACK_IMPORTED_MODULE_3__["default"],
   components: {
-    App: _App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  computed: {
-    counter: function counter() {
-      return store.state.counter;
-    }
-  },
-  methods: {
-    increment: function increment() {
-      store.commit('increment');
-    }
+    App: _App_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -5571,6 +5551,41 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }]
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
+
+/***/ }),
+
+/***/ "./resources/js/store.js":
+/*!*******************************!*\
+  !*** ./resources/js/store.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  state: {
+    transaction: 1
+  },
+  mutations: {
+    insert: function insert(state) {
+      state.transaction++;
+    }
+  },
+  actions: {},
+  getters: {
+    transaction: function transaction(state) {
+      return state.transaction;
+    }
+  }
+}));
 
 /***/ }),
 
@@ -28693,28 +28708,37 @@ var render = function () {
                 "v-btn",
                 { attrs: { icon: "" } },
                 [
-                  _c(
-                    "v-badge",
-                    {
-                      attrs: { color: "orange", overlap: "" },
-                      scopedSlots: _vm._u(
+                  _vm.transaction > 0
+                    ? _c(
+                        "v-badge",
+                        {
+                          attrs: { color: "orange", overlap: "" },
+                          scopedSlots: _vm._u(
+                            [
+                              {
+                                key: "badge",
+                                fn: function () {
+                                  return [
+                                    _c("span", [
+                                      _vm._v(_vm._s(_vm.transaction)),
+                                    ]),
+                                  ]
+                                },
+                                proxy: true,
+                              },
+                            ],
+                            null,
+                            false,
+                            1793511274
+                          ),
+                        },
                         [
-                          {
-                            key: "badge",
-                            fn: function () {
-                              return [_c("span", [_vm._v(_vm._s(_vm.counter))])]
-                            },
-                            proxy: true,
-                          },
+                          _vm._v(" "),
+                          _c("v-icon", [_vm._v("mdi-cash-multiple")]),
                         ],
-                        null,
-                        false,
-                        1905947130
-                      ),
-                    },
-                    [_vm._v(" "), _c("v-icon", [_vm._v("mdi-cash-multiple")])],
-                    1
-                  ),
+                        1
+                      )
+                    : _c("v-icon", [_vm._v("mdi-cash-multiple")]),
                 ],
                 1
               ),
@@ -28759,23 +28783,37 @@ var render = function () {
                 "v-btn",
                 { attrs: { icon: "" } },
                 [
-                  _c(
-                    "v-badge",
-                    {
-                      attrs: { color: "orange", overlap: "" },
-                      scopedSlots: _vm._u([
+                  _vm.transaction > 0
+                    ? _c(
+                        "v-badge",
                         {
-                          key: "badge",
-                          fn: function () {
-                            return [_c("span", [_vm._v("3")])]
-                          },
-                          proxy: true,
+                          attrs: { color: "orange", overlap: "" },
+                          scopedSlots: _vm._u(
+                            [
+                              {
+                                key: "badge",
+                                fn: function () {
+                                  return [
+                                    _c("span", [
+                                      _vm._v(_vm._s(_vm.transaction)),
+                                    ]),
+                                  ]
+                                },
+                                proxy: true,
+                              },
+                            ],
+                            null,
+                            false,
+                            1793511274
+                          ),
                         },
-                      ]),
-                    },
-                    [_vm._v(" "), _c("v-icon", [_vm._v("mdi-cash-multiple")])],
-                    1
-                  ),
+                        [
+                          _vm._v(" "),
+                          _c("v-icon", [_vm._v("mdi-cash-multiple")]),
+                        ],
+                        1
+                      )
+                    : _c("v-icon", [_vm._v("mdi-cash-multiple")]),
                 ],
                 1
               ),
@@ -28806,7 +28844,7 @@ var render = function () {
               _c("v-card-text", { staticClass: "text-center" }, [
                 _vm._v(
                   "\n                 © " +
-                    _vm._s(new Date().getFullYear) +
+                    _vm._s(new Date().getFullYear()) +
                     " - "
                 ),
                 _c("strong", [_vm._v("Sanbercode")]),
@@ -91815,7 +91853,7 @@ module.exports = JSON.parse('{"_args":[["axios@0.21.4","D:\\\\boodcamp\\\\sanbra
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_Campaigns_vue":1,"resources_js_views_Campaign_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_Campaigns_vue":1,"resources_js_views_Campaign_vue":1,"resources_js_components_CampaignItem_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

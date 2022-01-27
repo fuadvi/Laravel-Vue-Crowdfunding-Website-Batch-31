@@ -48,6 +48,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -57,22 +67,31 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.go();
   },
+  computed: {},
   methods: {
     go: function go() {
       var _this = this;
 
       var id = this.$route.params.id;
-      var url = 'api/campaign' + id;
+      var url = '/api/campaign/' + id;
       axios.get(url).then(function (res) {
         var data = res.data.data;
         _this.campaign = data.campaign;
+        console.log(_this.campaign);
       })["catch"](function (err) {
         var res = err.res;
         console.log(res);
       });
     },
     donate: function donate() {
-      alert('donate');
+      alert('Terimakasi telah melakukan donate');
+      this.$store.commit('insert');
+    },
+    rupiah: function rupiah(number) {
+      return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR"
+      }).format(number);
     }
   }
 });
@@ -174,7 +193,7 @@ var render = function () {
                 "v-img",
                 {
                   staticClass: "white--text",
-                  attrs: { src: _vm.campaign, height: "200px" },
+                  attrs: { src: _vm.campaign.image, height: "200px" },
                 },
                 [
                   _c("v-card-title", {
@@ -203,6 +222,33 @@ var render = function () {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(_vm.campaign.address))]),
               ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c(
+                  "td",
+                  [
+                    _c("v-icon", [_vm._v("mdi-hand-heart")]),
+                    _vm._v(" Terkumpul"),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("td", { staticClass: "yellow--text" }, [
+                  _vm._v(_vm._s(_vm.rupiah(_vm.campaign.collected))),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c(
+                  "td",
+                  [_c("v-icon", [_vm._v("mdi-cash")]), _vm._v(" Dibutuhkan")],
+                  1
+                ),
+                _vm._v(" "),
+                _c("td", { staticClass: "orange--text" }, [
+                  _vm._v(_vm._s(_vm.rupiah(_vm.campaign.required))),
+                ]),
+              ]),
             ]),
           ]),
           _vm._v("\n\n        Description: "),
@@ -219,6 +265,7 @@ var render = function () {
             "v-btn",
             {
               attrs: {
+                block: "",
                 color: "primary",
                 disabled: _vm.campaign.collected >= _vm.campaign.required,
               },

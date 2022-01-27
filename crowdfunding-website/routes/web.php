@@ -25,6 +25,7 @@ Route::get('/route-2', function () {
 Route::get('/', function () {
     return view('app');
 });
+Route::view('/{any?}', 'app')->where('any', '.*');
 
 
 
