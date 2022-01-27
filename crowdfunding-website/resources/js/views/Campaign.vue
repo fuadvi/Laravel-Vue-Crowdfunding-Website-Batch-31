@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 
 export default {
     data: () => ({
@@ -74,10 +75,9 @@ export default {
                 console.log(res)
             })
         },
-        donate(){
-            alert('Terimakasi telah melakukan donate')
-            this.$store.commit('insert')
-        },
+        ...mapMutations({
+            'donate' : 'transaction/insert'
+        }),
           rupiah (number){
             return new Intl.NumberFormat("id-ID", {
             style: "currency",
