@@ -2,6 +2,10 @@
    <!-- App.vue -->
 
     <v-app>
+
+
+        <alert></alert>
+
         <v-navigation-drawer app v-model="drawer">
             <v-list>
                 <v-list-item v-if="!guest">
@@ -123,8 +127,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+
 export default {
    name:'App',
+   components : {
+       Alert : () => './components/Alert'
+   },
    data: () =>({
        drawer: false,
        menus: [

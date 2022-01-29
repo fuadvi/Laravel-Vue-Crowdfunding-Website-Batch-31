@@ -5392,9 +5392,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'App',
+  components: {
+    Alert: function Alert() {
+      return './components/Alert';
+    }
+  },
   data: function data() {
     return {
       drawer: false,
@@ -5488,6 +5497,52 @@ window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/module/alert.js":
+/*!**************************************!*\
+  !*** ./resources/js/module/alert.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: {
+    status: false,
+    color: 'success',
+    text: ''
+  },
+  mutations: {
+    set: function set(state, payload) {
+      state.status = payload.status;
+      state.text = payload.text;
+      state.color = payload.color;
+    }
+  },
+  actions: {
+    set: function set(_ref, payload) {
+      var commit = _ref.commit;
+      commit('set', payload);
+    }
+  },
+  getters: {
+    status: function status(state) {
+      return state.status;
+    },
+    color: function color(state) {
+      return state.color;
+    },
+    text: function text(state) {
+      return state.text;
+    }
+  }
+});
 
 /***/ }),
 
@@ -5603,16 +5658,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _module_transaction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./module/transaction */ "./resources/js/module/transaction.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _module_alert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./module/alert */ "./resources/js/module/alert.js");
+/* harmony import */ var _module_transaction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./module/transaction */ "./resources/js/module/transaction.js");
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
+
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_3__["default"]);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_3__["default"].Store({
   modules: {
-    transaction: _module_transaction__WEBPACK_IMPORTED_MODULE_0__["default"]
+    transaction: _module_transaction__WEBPACK_IMPORTED_MODULE_1__["default"],
+    alert: _module_alert__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 }));
 
@@ -28564,6 +28622,8 @@ var render = function () {
   return _c(
     "v-app",
     [
+      _c("alert"),
+      _vm._v(" "),
       _c(
         "v-navigation-drawer",
         {

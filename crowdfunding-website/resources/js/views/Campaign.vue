@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
     data: () => ({
@@ -76,12 +76,24 @@ export default {
             })
         },
         ...mapMutations({
-            'donate' : 'transaction/insert'
+           tambahTransaksi : 'transaction/insert'
         }),
-          rupiah (number){
+        ...mapActions({
+            setAlert : 'alert/set'
+        }),
+        donate(){
+            this.tambahTransaksi()
+            this.setAlert({
+                status: true,
+                color: 'success',
+                text : 'Transaksi di tambahkan'
+            })
+            console.log(1)
+        },
+        rupiah (number){
             return new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR"
+                style: "currency",
+                currency: "IDR"
             }).format(number);
         }
     },

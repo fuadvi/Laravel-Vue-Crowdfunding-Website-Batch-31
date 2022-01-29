@@ -76,7 +76,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.go();
   },
   computed: {},
-  methods: _objectSpread(_objectSpread({
+  methods: _objectSpread(_objectSpread(_objectSpread({
     go: function go() {
       var _this = this;
 
@@ -92,8 +92,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapMutations)({
-    'donate': 'transaction/insert'
+    tambahTransaksi: 'transaction/insert'
+  })), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)({
+    setAlert: 'alert/set'
   })), {}, {
+    donate: function donate() {
+      this.tambahTransaksi();
+      this.setAlert({
+        status: true,
+        color: 'success',
+        text: 'Transaksi di tambahkan'
+      });
+      console.log(1);
+    },
     rupiah: function rupiah(number) {
       return new Intl.NumberFormat("id-ID", {
         style: "currency",
