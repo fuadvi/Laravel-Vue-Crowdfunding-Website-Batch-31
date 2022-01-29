@@ -6,6 +6,11 @@
 
         <alert></alert>
 
+        <v-dialog v-model="dialog" fullscreen hide-overlay transition="scale-transition">
+            <search @closed="closeDialog" />
+        </v-dialog>
+
+
         <v-navigation-drawer app v-model="drawer">
             <v-list>
                 <v-list-item v-if="!guest">
@@ -74,6 +79,7 @@
             </v-btn>
 
             <v-text-field
+            @click="dialog = true"
             slot="extension"
             hide-details
             append-icon="mdi-microphone"
@@ -127,11 +133,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
 export default {
    name:'App',
    components : {
-       Alert : () => './components/Alert'
+        Alert : () => import('./components/Alert'),
+        Search : () => import('./components/Search.vue'),
+
+
    },
    data: () =>({
        drawer: false,
@@ -139,7 +147,8 @@ export default {
            {title:'Home',icon:'mdi-home', route:'/'},
            {title:'Campigns',icon:'mdi-hand-heart', route:'/campigns'}
        ],
-       guest:false
+       guest:false,
+       dialog : false
    }),
    computed: {
        isHome () {
@@ -151,7 +160,9 @@ export default {
 
    },
     methods: {
-
+        closeDialog(value){
+            this.dialog = value
+        }
     }
 
 }

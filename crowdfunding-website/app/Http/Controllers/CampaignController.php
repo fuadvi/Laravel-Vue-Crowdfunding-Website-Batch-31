@@ -103,4 +103,19 @@ class CampaignController extends Controller
             200
         );
     }
+
+    public function search($keyword)
+    {
+        $campaigns = Campaign::where('title', 'LIKE', '%' . $keyword . '%')->get();
+        $data['campaigns'] = $campaigns;
+
+        return response()->json(
+            [
+                'response_code' => '00',
+                'response_message' => 'data campaigns berhasil di tampilkan',
+                'data' => $data
+            ],
+            200
+        );
+    }
 }

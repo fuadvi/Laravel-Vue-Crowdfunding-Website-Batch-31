@@ -5396,12 +5396,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'App',
   components: {
     Alert: function Alert() {
-      return './components/Alert';
+      return __webpack_require__.e(/*! import() */ "resources_js_components_Alert_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Alert */ "./resources/js/components/Alert.vue"));
+    },
+    Search: function Search() {
+      return __webpack_require__.e(/*! import() */ "resources_js_components_Search_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Search.vue */ "./resources/js/components/Search.vue"));
     }
   },
   data: function data() {
@@ -5416,7 +5425,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         icon: 'mdi-hand-heart',
         route: '/campigns'
       }],
-      guest: false
+      guest: false,
+      dialog: false
     };
   },
   computed: _objectSpread({
@@ -5426,7 +5436,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
     'transaction': 'transaction/transactions'
   })),
-  methods: {}
+  methods: {
+    closeDialog: function closeDialog(value) {
+      this.dialog = value;
+    }
+  }
 });
 
 /***/ }),
@@ -28625,6 +28639,26 @@ var render = function () {
       _c("alert"),
       _vm._v(" "),
       _c(
+        "v-dialog",
+        {
+          attrs: {
+            fullscreen: "",
+            "hide-overlay": "",
+            transition: "scale-transition",
+          },
+          model: {
+            value: _vm.dialog,
+            callback: function ($$v) {
+              _vm.dialog = $$v
+            },
+            expression: "dialog",
+          },
+        },
+        [_c("search", { on: { closed: _vm.closeDialog } })],
+        1
+      ),
+      _vm._v(" "),
+      _c(
         "v-navigation-drawer",
         {
           attrs: { app: "" },
@@ -28841,6 +28875,11 @@ var render = function () {
                   label: "Search",
                   "prepend-inner-icon": "mdi-magnify",
                   "solo-inverted": "",
+                },
+                on: {
+                  click: function ($event) {
+                    _vm.dialog = true
+                  },
                 },
                 slot: "extension",
               }),
@@ -91942,7 +91981,7 @@ module.exports = JSON.parse('{"_args":[["axios@0.21.4","D:\\\\boodcamp\\\\sanbra
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_Campaigns_vue":1,"resources_js_views_Campaign_vue":1,"resources_js_components_CampaignItem_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_Campaigns_vue":1,"resources_js_views_Campaign_vue":1,"resources_js_components_Alert_vue":1,"resources_js_components_Search_vue":1,"resources_js_components_CampaignItem_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

@@ -52,6 +52,7 @@ Route::group([
     Route::post('store', [CampaignController::class, 'store']);
     Route::get('/', [CampaignController::class, 'index']);
     Route::get('/{id}', [CampaignController::class, 'detail']);
+    Route::get('/search/{keyword}', [CampaignController::class, 'search']);
 });
 
 Route::group([
