@@ -5807,6 +5807,12 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       return __webpack_require__.e(/*! import() */ "resources_js_views_Campaign_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/Campaign.vue */ "./resources/js/views/Campaign.vue"));
     }
   }, {
+    path: '/auth/social/:provider/callback',
+    name: 'social',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_Social_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/Social.vue */ "./resources/js/views/Social.vue"));
+    }
+  }, {
     path: '*',
     redirect: '/'
   }]
@@ -29042,11 +29048,7 @@ var render = function () {
                     [
                       _c(
                         "v-list-item-avatar",
-                        [
-                          _c("v-img", {
-                            attrs: { src: _vm.user.user.photo_profile },
-                          }),
-                        ],
+                        [_c("v-img", { attrs: { src: _vm.user.user.photo } })],
                         1
                       ),
                       _vm._v(" "),
@@ -92710,7 +92712,7 @@ module.exports = JSON.parse('{"_args":[["axios@0.21.4","D:\\\\boodcamp\\\\sanbra
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_Campaigns_vue":1,"resources_js_views_Campaign_vue":1,"resources_js_components_Alert_vue":1,"resources_js_components_Search_vue":1,"resources_js_components_Login_vue":1,"resources_js_components_CampaignItem_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_Campaigns_vue":1,"resources_js_views_Campaign_vue":1,"resources_js_views_Social_vue":1,"resources_js_components_Alert_vue":1,"resources_js_components_Search_vue":1,"resources_js_components_Login_vue":1,"resources_js_components_CampaignItem_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

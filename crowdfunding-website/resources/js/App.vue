@@ -17,7 +17,7 @@
             <v-list>
                 <v-list-item v-if="!guest">
                     <v-list-item-avatar>
-                        <v-img :src="user.user.photo_profile"></v-img>
+                        <v-img :src="user.user.photo"></v-img>
                     </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title>{{  user.user.nama }}</v-list-item-title>
