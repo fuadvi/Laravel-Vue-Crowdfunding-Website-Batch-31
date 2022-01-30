@@ -12,7 +12,7 @@ membagun sebuah sistem crowdfunding dengan laravel dan vue 2
 * vuex
   * vuex presisi
 
-## Screanchot
+## Screanchot [link ke Screanchot](https://github.com/fuadvi/Laravel-Vue-Crowdfunding-Website-Batch-31/tree/main/Screenshot)
 ### Halaman Home
 ![Gambar home](https://github.com/fuadvi/Laravel-Vue-Crowdfunding-Website-Batch-31/blob/main/Screenshot/halaman%20home.png)
 ### Halaman Detail Camping
@@ -23,10 +23,10 @@ membagun sebuah sistem crowdfunding dengan laravel dan vue 2
 ![Gambar Login dengan google](https://github.com/fuadvi/Laravel-Vue-Crowdfunding-Website-Batch-31/blob/main/Screenshot/login%20with%20google.png)
 ### Halaman Search
 ![Gambar Search](https://github.com/fuadvi/Laravel-Vue-Crowdfunding-Website-Batch-31/blob/main/Screenshot/halaman%20pencarian.png)
-### Halaman Search
-![Gambar Search](https://github.com/fuadvi/Laravel-Vue-Crowdfunding-Website-Batch-31/blob/main/Screenshot/halaman%20pencarian.png)
 ### Setalah Melakukan Donate
 ![Gambar Donate](https://github.com/fuadvi/Laravel-Vue-Crowdfunding-Website-Batch-31/blob/main/Screenshot/setelah%20melakukan%20donate.png)
 ### Halaman Home Setalah Login
 ![Gambar setelah login](https://github.com/fuadvi/Laravel-Vue-Crowdfunding-Website-Batch-31/blob/main/Screenshot/galaman%20home%20setelah%20login.png)
+### Melakukan Logout
+![Gambar Logout](https://github.com/fuadvi/Laravel-Vue-Crowdfunding-Website-Batch-31/blob/main/Screenshot/setelah%20logout.png)
 
