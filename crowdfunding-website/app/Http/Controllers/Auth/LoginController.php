@@ -21,7 +21,7 @@ class LoginController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$token = auth()->attempt($request->only(['email', 'password']))) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'email atau password salah'], 401);
         }
 
 

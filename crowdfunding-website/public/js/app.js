@@ -5402,6 +5402,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'App',
@@ -5411,6 +5414,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     Search: function Search() {
       return __webpack_require__.e(/*! import() */ "resources_js_components_Search_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Search.vue */ "./resources/js/components/Search.vue"));
+    },
+    Login: function Login() {
+      return __webpack_require__.e(/*! import() */ "resources_js_components_Login_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Login.vue */ "./resources/js/components/Login.vue"));
     }
   },
   data: function data() {
@@ -5424,23 +5430,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         title: 'Campigns',
         icon: 'mdi-hand-heart',
         route: '/campigns'
-      }],
-      guest: false,
-      dialog: false
+      }]
     };
   },
-  computed: _objectSpread({
+  computed: _objectSpread(_objectSpread({
     isHome: function isHome() {
       return this.$route.path === '/' || this.$route.path === '/home';
     }
   }, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
-    'transaction': 'transaction/transactions'
-  })),
-  methods: {
-    closeDialog: function closeDialog(value) {
-      this.dialog = value;
+    'transaction': 'transaction/transactions',
+    guest: 'auth/guest',
+    user: 'auth/user',
+    dialogStatus: 'dialog/status',
+    currentComponent: 'dialog/component'
+  })), {}, {
+    dialog: {
+      get: function get() {
+        return this.dialogStatus;
+      },
+      set: function set(value) {
+        this.dialogStatus(value);
+      }
     }
-  }
+  }),
+  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)({
+    setDialogStatus: 'dialog/setStatus',
+    setComponent: 'dialog/setComponent'
+  }))
 });
 
 /***/ }),
@@ -5560,6 +5576,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/module/auth.js":
+/*!*************************************!*\
+  !*** ./resources/js/module/auth.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: {
+    user: {}
+  },
+  mutations: {
+    set: function set(state, payload) {
+      state.user = payload;
+    }
+  },
+  actions: {
+    set: function set(_ref, payload) {
+      var commit = _ref.commit;
+      commit("set", payload);
+    }
+  },
+  getters: {
+    user: function user(state) {
+      return state.user;
+    },
+    guest: function guest(state) {
+      return Object.keys(state.user).length === 0;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/module/dialog.js":
+/*!***************************************!*\
+  !*** ./resources/js/module/dialog.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: {
+    status: false,
+    component: 'search'
+  },
+  mutations: {
+    setStatus: function setStatus(state, status) {
+      state.status = status;
+    },
+    setComponent: function setComponent(state, component) {
+      state.component = component;
+    }
+  },
+  actions: {
+    setStatus: function setStatus(_ref, status) {
+      var commit = _ref.commit;
+      commit("setStatus", status);
+    },
+    setComponent: function setComponent(_ref2, component) {
+      var commit = _ref2.commit;
+      commit("setComponent", component);
+      commit("setStatus", true);
+    }
+  },
+  getters: {
+    status: function status(state) {
+      return state.status;
+    },
+    component: function component(state) {
+      return state.component;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/module/transaction.js":
 /*!********************************************!*\
   !*** ./resources/js/module/transaction.js ***!
@@ -5672,19 +5775,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _module_alert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./module/alert */ "./resources/js/module/alert.js");
-/* harmony import */ var _module_transaction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./module/transaction */ "./resources/js/module/transaction.js");
+/* harmony import */ var _module_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./module/auth */ "./resources/js/module/auth.js");
+/* harmony import */ var _module_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./module/dialog */ "./resources/js/module/dialog.js");
+/* harmony import */ var _module_transaction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./module/transaction */ "./resources/js/module/transaction.js");
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_3__["default"]);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_3__["default"].Store({
+
+
+vue__WEBPACK_IMPORTED_MODULE_4__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_5__["default"]);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
   modules: {
-    transaction: _module_transaction__WEBPACK_IMPORTED_MODULE_1__["default"],
-    alert: _module_alert__WEBPACK_IMPORTED_MODULE_0__["default"]
+    transaction: _module_transaction__WEBPACK_IMPORTED_MODULE_3__["default"],
+    alert: _module_alert__WEBPACK_IMPORTED_MODULE_0__["default"],
+    auth: _module_auth__WEBPACK_IMPORTED_MODULE_1__["default"],
+    dialog: _module_dialog__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 }));
 
@@ -28639,22 +28748,34 @@ var render = function () {
       _c("alert"),
       _vm._v(" "),
       _c(
-        "v-dialog",
-        {
-          attrs: {
-            fullscreen: "",
-            "hide-overlay": "",
-            transition: "scale-transition",
-          },
-          model: {
-            value: _vm.dialog,
-            callback: function ($$v) {
-              _vm.dialog = $$v
+        "keep-alive",
+        [
+          _c(
+            "v-dialog",
+            {
+              attrs: {
+                fullscreen: "",
+                "hide-overlay": "",
+                persistent: "",
+                transition: "dialog-bottom-transition",
+              },
+              model: {
+                value: _vm.dialog,
+                callback: function ($$v) {
+                  _vm.dialog = $$v
+                },
+                expression: "dialog",
+              },
             },
-            expression: "dialog",
-          },
-        },
-        [_c("search", { on: { closed: _vm.closeDialog } })],
+            [
+              _c(_vm.currentComponent, {
+                tag: "component",
+                on: { closed: _vm.setDialogStatus },
+              }),
+            ],
+            1
+          ),
+        ],
         1
       ),
       _vm._v(" "),
@@ -28718,9 +28839,7 @@ var render = function () {
                         "v-list-item-avatar",
                         [
                           _c("v-img", {
-                            attrs: {
-                              src: "https://randomuser.me/api/portraits/lego/6.jpg",
-                            },
+                            attrs: { src: _vm.user.user.photo_profile },
                           }),
                         ],
                         1
@@ -28728,7 +28847,11 @@ var render = function () {
                       _vm._v(" "),
                       _c(
                         "v-list-item-content",
-                        [_c("v-list-item-title", [_vm._v("Ika Wulandari")])],
+                        [
+                          _c("v-list-item-title", [
+                            _vm._v(_vm._s(_vm.user.user.nama)),
+                          ]),
+                        ],
                         1
                       ),
                     ],
@@ -28746,6 +28869,11 @@ var render = function () {
                         {
                           staticClass: "mb-1",
                           attrs: { block: "", color: "primary" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.setComponent("login")
+                            },
+                          },
                         },
                         [
                           _c("v-icon", { attrs: { left: "" } }, [
@@ -28878,7 +29006,7 @@ var render = function () {
                 },
                 on: {
                   click: function ($event) {
-                    _vm.dialog = true
+                    return _vm.setComponent("search")
                   },
                 },
                 slot: "extension",
@@ -91981,7 +92109,7 @@ module.exports = JSON.parse('{"_args":[["axios@0.21.4","D:\\\\boodcamp\\\\sanbra
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_Campaigns_vue":1,"resources_js_views_Campaign_vue":1,"resources_js_components_Alert_vue":1,"resources_js_components_Search_vue":1,"resources_js_components_CampaignItem_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_Campaigns_vue":1,"resources_js_views_Campaign_vue":1,"resources_js_components_Alert_vue":1,"resources_js_components_Search_vue":1,"resources_js_components_Login_vue":1,"resources_js_components_CampaignItem_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

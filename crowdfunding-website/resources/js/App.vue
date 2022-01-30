@@ -6,24 +6,26 @@
 
         <alert></alert>
 
-        <v-dialog v-model="dialog" fullscreen hide-overlay transition="scale-transition">
-            <search @closed="closeDialog" />
-        </v-dialog>
+        <keep-alive>
+            <v-dialog v-model="dialog" fullscreen hide-overlay persistent transition="dialog-bottom-transition">
+                <component :is="currentComponent" @closed="setDialogStatus"></component>
+            </v-dialog>
+        </keep-alive>
 
 
         <v-navigation-drawer app v-model="drawer">
             <v-list>
                 <v-list-item v-if="!guest">
                     <v-list-item-avatar>
-                        <v-img src="https://randomuser.me/api/portraits/lego/6.jpg"></v-img>
+                        <v-img :src="user.user.photo_profile"></v-img>
                     </v-list-item-avatar>
                     <v-list-item-content>
-                        <v-list-item-title>Ika Wulandari</v-list-item-title>
+                        <v-list-item-title>{{  user.user.nama }}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
                 <div class="pa-2" v-if="guest">
-                    <v-btn block color="primary" class="mb-1">
+                    <v-btn block color="primary" class="mb-1"  @click="setComponent('login')">
                         <v-icon left>mdi-lock</v-icon>
                         Login
                     </v-btn>
@@ -79,14 +81,15 @@
             </v-btn>
 
             <v-text-field
-            @click="dialog = true"
-            slot="extension"
-            hide-details
-            append-icon="mdi-microphone"
-            flat
-            label="Search"
-            prepend-inner-icon="mdi-magnify"
-            solo-inverted />
+                slot="extension"
+                hide-details
+                append-icon="mdi-microphone"
+                flat
+                label="Search"
+                prepend-inner-icon="mdi-magnify"
+                solo-inverted
+                @click="setComponent('search')"
+            />
         </v-app-bar>
 
         <v-app-bar app color="success" dark v-else>
@@ -132,12 +135,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
    name:'App',
    components : {
         Alert : () => import('./components/Alert'),
         Search : () => import('./components/Search.vue'),
+        Login : () => import('./components/Login.vue'),
 
 
    },
@@ -147,22 +151,34 @@ export default {
            {title:'Home',icon:'mdi-home', route:'/'},
            {title:'Campigns',icon:'mdi-hand-heart', route:'/campigns'}
        ],
-       guest:false,
-       dialog : false
    }),
    computed: {
        isHome () {
            return (this.$route.path === '/' || this.$route.path ==='/home')
        },
        ...mapGetters({
-           'transaction' : 'transaction/transactions'
-       })
+           'transaction' : 'transaction/transactions',
+            guest : 'auth/guest',
+            user : 'auth/user',
+            dialogStatus : 'dialog/status',
+            currentComponent : 'dialog/component'
+
+       }),
+       dialog:{
+           get(){
+               return this.dialogStatus
+           },
+           set(value){
+               this.dialogStatus(value)
+           }
+       }
 
    },
     methods: {
-        closeDialog(value){
-            this.dialog = value
-        }
+        ...mapActions({
+            setDialogStatus: 'dialog/setStatus',
+            setComponent: 'dialog/setComponent',
+        })
     }
 
 }
