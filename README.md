@@ -12,6 +12,8 @@ membagun sebuah sistem crowdfunding dengan laravel dan vue 2
 * vuex
   * vuex presisi
 
+## link demo [link](https://drive.google.com/file/d/1LfbT1QT5GbFyQ8ANXF90-4y7BbtvEGfa/view?usp=sharing)
+
 ## Screanchot [ke Screanchot](https://github.com/fuadvi/Laravel-Vue-Crowdfunding-Website-Batch-31/tree/main/Screenshot)
 ### Halaman Home
 ![Gambar home](https://github.com/fuadvi/Laravel-Vue-Crowdfunding-Website-Batch-31/blob/main/Screenshot/halaman%20home.png)
