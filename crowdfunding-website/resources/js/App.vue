@@ -180,7 +180,8 @@ export default {
             setDialogStatus: 'dialog/setStatus',
             setComponent: 'dialog/setComponent',
             setAlert : 'alert/set',
-            setAuth: 'auth/set'
+            setAuth: 'auth/set',
+            checkToken : 'auth/checkToken'
         }),
         logout(){
             let config = {
@@ -205,7 +206,12 @@ export default {
                 })
             })
         }
-    }
+    },
+    mounted() {
+        if (this.user) {
+            this.checkToken(this.user)
+        }
+    },
 
 }
 </script>

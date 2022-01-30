@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\CheckTokenController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegeneretController;
@@ -36,7 +37,8 @@ Route::prefix('/auth')
         Route::post('verification', VerificationController::class);
         Route::post('generet-otp', RegeneretController::class);
         Route::post('update-password', UpdatePasswordController::class);
-        Route::post('logout', LogoutController::class);
+        Route::post('logout', LogoutController::class)->middleware('auth:api');
+        Route::post('check-token', CheckTokenController::class)->middleware('auth:api');
     });
 
 Route::prefix('/profile')
