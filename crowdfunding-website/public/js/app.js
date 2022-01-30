@@ -5262,7 +5262,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -5406,6 +5408,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'App',
   components: {
@@ -5437,7 +5440,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     isHome: function isHome() {
       return this.$route.path === '/' || this.$route.path === '/home';
     }
-  }, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
+  }, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)({
     'transaction': 'transaction/transactions',
     guest: 'auth/guest',
     user: 'auth/user',
@@ -5453,10 +5456,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)({
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)({
     setDialogStatus: 'dialog/setStatus',
-    setComponent: 'dialog/setComponent'
-  }))
+    setComponent: 'dialog/setComponent',
+    setAlert: 'alert/set',
+    setAuth: 'auth/set'
+  })), {}, {
+    logout: function logout() {
+      var _this = this;
+
+      var config = {
+        headers: {
+          'Authorization': 'Barrer' + this.user.token
+        }
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/auth/logout', {}, config).then(function (res) {
+        _this.setAuth({});
+
+        _this.setAlert({
+          status: true,
+          color: 'success',
+          text: 'Logout berhasil'
+        });
+      })["catch"](function (err) {
+        var data = err.message.data;
+
+        _this.setAlert({
+          status: true,
+          color: 'error',
+          text: data.message
+        });
+      });
+    }
+  })
 });
 
 /***/ }),
@@ -28796,7 +28828,10 @@ var render = function () {
                           [
                             _c(
                               "v-btn",
-                              { attrs: { block: "", color: "red", dark: "" } },
+                              {
+                                attrs: { block: "", color: "red", dark: "" },
+                                on: { click: _vm.logout },
+                              },
                               [
                                 _c("v-icon", { attrs: { left: "" } }, [
                                   _vm._v("mdi-lock"),

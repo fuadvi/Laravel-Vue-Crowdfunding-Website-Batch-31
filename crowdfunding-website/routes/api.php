@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegeneretController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UpdatePasswordController;
@@ -35,6 +36,7 @@ Route::prefix('/auth')
         Route::post('verification', VerificationController::class);
         Route::post('generet-otp', RegeneretController::class);
         Route::post('update-password', UpdatePasswordController::class);
+        Route::post('logout', LogoutController::class);
     });
 
 Route::prefix('/profile')
